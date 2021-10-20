@@ -6,6 +6,9 @@ public class Platformer : MonoBehaviour
 {
 	Rigidbody2D rb;
 	public float speed;
+	float vy;
+    float vx;
+	bool facingRight;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +27,37 @@ public class Platformer : MonoBehaviour
     {
     	float x = Input.GetAxisRaw("Horizontal");
     	float moveBy = x * speed;
+        vx = rb.velocity.x;
+
+        if(vx > 0)
+        {
+            facingRight = true;
+        }
+        else if(vx < 0)
+        {
+            facingRight = false;
+        }
     	rb.velocity = new Vector2(moveBy, rb.velocity.y);
     }
+    void LateUpdate()
+    {
+        // get the current scale
+        Vector3 localScale = transform.localScale;
+
+        if (vx < 0) // moving right so face right
+        {
+            facingRight = true;
+        } else if (vx > 0) { // moving left so face left
+            facingRight = false;
+        }
+
+        // check to see if scale x is right for the player
+        // if not, multiple by -1 which is an easy way to flip a sprite
+        if (((facingRight) && (localScale.x<0)) || ((!facingRight) && (localScale.x>0))) {
+            localScale.x *= -1;
+        }   
+
+        // update the scale
+        transform.localScale = localScale;
+}
 }

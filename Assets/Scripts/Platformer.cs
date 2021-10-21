@@ -6,6 +6,8 @@ public class Platformer : MonoBehaviour
 {
 	Rigidbody2D rb;
 	public float speed;
+	public bool isGrounded;
+	public float jumpForce;
 	float vy;
     float vx;
 	bool facingRight;
@@ -20,6 +22,9 @@ public class Platformer : MonoBehaviour
     void Update()
     {
     	Move();
+            if(Input.GetButtonDown ("Jump")){
+                rb.velocity = new Vector2(rb.velocity.x,jumpForce);
+            }
         
     }
 
@@ -39,6 +44,7 @@ public class Platformer : MonoBehaviour
         }
     	rb.velocity = new Vector2(moveBy, rb.velocity.y);
     }
+
     void LateUpdate()
     {
         // get the current scale
@@ -59,5 +65,15 @@ public class Platformer : MonoBehaviour
 
         // update the scale
         transform.localScale = localScale;
-}
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            isGrounded = true;
+        }
+    }
+
+
 }

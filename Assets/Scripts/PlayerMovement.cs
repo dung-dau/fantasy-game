@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour {
 	            facingRight = false;
 	        }
 
-	    //If we're not moving horizontally, check for vertical movement. The "else if" stops diagonal movement.
+	    //If we're not moving horizontally, check for vertical movement.
 	    }
 	    if (Input.GetAxisRaw ("Vertical") > 0.5f || Input.GetAxisRaw("Vertical") < -0.5f) {
 	        transform.Translate (new Vector3 (0f, Input.GetAxisRaw ("Vertical") * speed * Time.deltaTime, 0f));

@@ -8,6 +8,7 @@ public class DoorScript : MonoBehaviour {
 
 	bool playerDetected; 
 	GameObject playerGO;
+	public GameObject cameraGO;
     // Start is called before the first frame update
     void Start() {
     	playerDetected = false;
@@ -19,9 +20,11 @@ public class DoorScript : MonoBehaviour {
     		Debug.Log("Update");
     		playerGO.transform.position = posToGo.position;
     		if(Input.GetKey(KeyCode.LeftArrow)) {
-    			playerGO.transform.position -= new Vector3(10,0,0);
+    			playerGO.transform.position -= new Vector3(2,0,0);
+    			cameraGO.transform.position -= new Vector3(50,0,0);
     		} else if(Input.GetKey(KeyCode.RightArrow)) {
-    			playerGO.transform.position += new Vector3(10,0,0);
+    			playerGO.transform.position += new Vector3(2,0,0);
+    			cameraGO.transform.position += new Vector3(50,0,0);
     		}
     		playerDetected = false;
     	}

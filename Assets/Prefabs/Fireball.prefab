@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1791368743116872212}
   - component: {fileID: 5119881074287741734}
-  - component: {fileID: 3485730879491738525}
+  - component: {fileID: 2724638380063401018}
   m_Layer: 0
   m_Name: Fireball
   m_TagString: Untagged
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &3485730879491738525
+--- !u!50 &2724638380063401018
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -98,7 +98,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1

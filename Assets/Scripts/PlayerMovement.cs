@@ -21,10 +21,10 @@ public class PlayerMovement : MonoBehaviour {
 		movement = Input.GetAxis("Horizontal");
 		if(movement > 0f) {
 			playerRigidBody.velocity = new Vector2(movement * speed,playerRigidBody.velocity.y);
-			transform.localScale = new Vector2(-1f,1f);
+			transform.localScale = new Vector2(5f,5f);
 		} else if(movement < 0f) {
 			playerRigidBody.velocity = new Vector2(movement * speed,playerRigidBody.velocity.y);
-			transform.localScale = new Vector2(1f,1f);
+			transform.localScale = new Vector2(-5f,5f);
 		} else {
 			playerRigidBody.velocity = new Vector2(0,playerRigidBody.velocity.y);
 		}

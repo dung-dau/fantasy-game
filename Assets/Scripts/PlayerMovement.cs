@@ -3,47 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
-	public float speed;
-	public float jumpForce = 22f;
-	public Rigidbody2D rb;
-	private bool isGrounded;
-	private bool facingRight;
+	public float speed = 5f;
+	public float jumpSpeed = 8f;
+	private float movement = 0f;
+	private Rigidbody2D playerRigidBody;
+	public Transform groundCheckPoint;
+	public float groundCheckRadius;
+	public LayerMask groundLayer;
+	private bool isTouchingGround;
 
 	void Start() {
-		rb = GetComponent<Rigidbody2D>();
-		Flip();
+		playerRigidBody = GetComponent<Rigidbody2D>();
 	}
 
 	void Update() {
-	    //On X axis: -1f is left, 1f is right
+		isTouchingGround = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
+		movement = Input.GetAxis("Horizontal");
+		if(movement > 0f) {
+			playerRigidBody.velocity = new Vector2(movement * speed,playerRigidBody.velocity.y);
+			transform.localScale = new Vector2(-1f,1f);
+		} else if(movement < 0f) {
+			playerRigidBody.velocity = new Vector2(movement * speed,playerRigidBody.velocity.y);
+			transform.localScale = new Vector2(1f,1f);
+		} else {
+			playerRigidBody.velocity = new Vector2(0,playerRigidBody.velocity.y);
+		}
 
-	    //Player Movement. Check for horizontal movement
-	    if (Input.GetAxisRaw ("Horizontal") > 0.5f || Input.GetAxisRaw("Horizontal") < -0.5f) {
-	        transform.Translate (new Vector3 (Input.GetAxisRaw ("Horizontal") * speed * Time.deltaTime, 0f, 0f));
-	        if (Input.GetAxisRaw ("Horizontal") > 0.5f && !facingRight) {
-	            //If we're moving right but not facing right, flip the sprite and set     facingRight to true.
-	            Flip ();
-	            facingRight = true;
-	        } else if (Input.GetAxisRaw("Horizontal") < 0.5f && facingRight) {
-	            //If we're moving left but not facing left, flip the sprite and set facingRight to false.
-	            Flip ();
-	            facingRight = false;
-	        }
+		if(Input.GetKeyDown(KeyCode.UpArrow) && isTouchingGround) {
+			playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpSpeed);
+		}
 
-	    //If we're not moving horizontally, check for vertical movement.
-	    }
-	    if (Input.GetAxisRaw ("Vertical") > 0.5f || Input.GetAxisRaw("Vertical") < -0.5f) {
-	        transform.Translate (new Vector3 (0f, Input.GetAxisRaw ("Vertical") * speed * Time.deltaTime, 0f));
-	    }
-    }
-
-    void Flip() {
-	    // Switch the way the player is labelled as facing
-	    facingRight = !facingRight;
-
-	    // Multiply the player's x local scale by -1
-	    Vector3 theScale = transform.localScale;
-	    theScale.x *= -1;
-	    transform.localScale = theScale;
 	}
 }

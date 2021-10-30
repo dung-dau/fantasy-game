@@ -5,13 +5,13 @@ using UnityEngine;
 public class ProjectileScript : MonoBehaviour {
 
 	public float projectileSpeed;
-	private Rigidbody2D rigidbody;
+	private Rigidbody2D rb;
 
 
     // Start is called before the first frame update
     void Start() {
-    	rigidbody = GetComponent<Rigidbody2D>();
-    	rigidbody.velocity = transform.right * projectileSpeed;
+    	rb = GetComponent<Rigidbody2D>();
+    	rb.velocity = transform.right * projectileSpeed;
         
     }
 

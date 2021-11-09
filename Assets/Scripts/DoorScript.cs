@@ -17,7 +17,6 @@ public class DoorScript : MonoBehaviour {
     // Update is called once per frame
     void Update() {
     	if(playerDetected) {
-    		Debug.Log("Update");
     		playerGO.transform.position = posToGo.position;
     		if(Input.GetKey(KeyCode.LeftArrow)) {
     			playerGO.transform.position -= new Vector3(2,0,0);
@@ -32,7 +31,6 @@ public class DoorScript : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-    	Debug.Log("OnTriggerEnter2D");
     	if(collision.CompareTag("Player")) {
     		playerDetected = true;
     		playerGO = collision.gameObject;
@@ -40,7 +38,6 @@ public class DoorScript : MonoBehaviour {
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
-    	Debug.Log("OnTriggerExit2D");
     	if(collision.CompareTag("Player")) {
     		playerDetected = false;
     	}

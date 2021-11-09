@@ -11,14 +11,23 @@ public class PlayerMovement : MonoBehaviour {
 	public float groundCheckRadius;
 	public LayerMask groundLayer;
 	private bool isTouchingGround;
+	private Animator anim;
 
 	void Start() {
 		playerRigidBody = GetComponent<Rigidbody2D>();
+		anim = GetComponent<Animator>();
 	}
 
 	void Update() {
 		isTouchingGround = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
 		movement = Input.GetAxis("Horizontal");
+
+		if(movement == 0) {
+			anim.SetBool("isRunning", false);
+		} else {
+			anim.SetBool("isRunning", true);
+		}
+
 		if(movement > 0f) {
 			playerRigidBody.velocity = new Vector2(movement * speed,playerRigidBody.velocity.y);
 			transform.localScale = new Vector2(5f,5f);
